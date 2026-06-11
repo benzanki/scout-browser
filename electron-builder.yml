@@ -1,0 +1,50 @@
+appId: com.scout.browser
+productName: Scout
+copyright: Copyright © 2026 Scout
+
+# Use the modern signing toolset (Windows-only package). The legacy default
+# bundles macOS tooling whose symlinks fail to extract on Windows without
+# admin/Developer Mode.
+toolsets:
+  winCodeSign: '1.1.0'
+
+directories:
+  buildResources: build
+  output: dist
+
+# asar disabled so the <webview> preload + resources load reliably from disk.
+asar: false
+
+files:
+  - 'out/**/*'
+  - 'resources/**/*'
+  - 'package.json'
+
+win:
+  target:
+    - nsis
+  icon: build/icon.ico
+  executableName: Scout
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Scout
+  uninstallDisplayName: Scout
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+# No code signing (personal/unsigned build) — Windows SmartScreen will show a
+# one-time "unknown publisher" prompt on first run, which is expected.
+
+# Self-update source: a GitHub repo's Releases. The installed app checks here for
+# newer versions. REPLACE `owner` with your GitHub username, and create a repo
+# of the matching `repo` name (it can be public + empty — only holds releases).
+publish:
+  provider: github
+  owner: benzanki
+  repo: scout-browser
+  # Publish releases live (not as drafts) so the installed app can see them.
+  releaseType: release

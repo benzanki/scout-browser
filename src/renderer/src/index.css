@@ -1,0 +1,183 @@
+@import 'tailwindcss';
+
+/* Scout design tokens — "midnight aurora": a deep, slightly violet dark base
+   with frosted-glass surfaces and a luminous indigo accent. Tailwind v4 reads
+   these from the @theme block to generate utilities like bg-scout-bg, etc. */
+@theme {
+  --color-scout-bg: #05070d;
+  --color-scout-surface: #101524;
+  --color-scout-surface-2: #1a2032;
+  --color-scout-border: rgba(138, 156, 255, 0.13);
+  --color-scout-text: #eef1f8;
+  --color-scout-muted: #97a0b5;
+  --color-scout-faint: #5f6880;
+  --color-scout-accent: #7b8cff;
+  --color-scout-accent-soft: rgba(123, 140, 255, 0.14);
+  --color-scout-green: #4ad6a9;
+  --color-scout-amber: #eab06a;
+  --color-scout-pink: #ef7ab2;
+  --color-scout-purple: #a78bfa;
+  --color-scout-red: #ee6478;
+  --color-scout-orange: #ee9560;
+  --color-scout-teal: #4cc8d6;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  user-select: none;
+  overflow: hidden;
+  background: var(--color-scout-bg);
+}
+
+::selection {
+  background: rgba(123, 140, 255, 0.35);
+}
+
+/* ---------- Aurora backdrop ----------
+   The app's base canvas: a deep navy wash with three soft colour glows that
+   drift very slowly. Applied to the Hub root so every view sits on it. */
+.aurora-bg {
+  background:
+    radial-gradient(900px 600px at 12% -8%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(800px 540px at 88% 12%, rgba(168, 85, 247, 0.1), transparent 60%),
+    radial-gradient(900px 700px at 50% 115%, rgba(34, 211, 238, 0.07), transparent 55%),
+    linear-gradient(180deg, #070a14 0%, #05070d 55%, #060812 100%);
+}
+
+/* ---------- Glass surfaces ---------- */
+/* Standard frosted card/panel: shows the aurora through a blur. */
+.glass {
+  background: rgba(16, 21, 38, 0.55);
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+}
+/* Heavier glass for modals / floating panels (more opaque = readable anywhere). */
+.glass-strong {
+  background: rgba(14, 18, 33, 0.92);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+}
+/* Card: glass + border + depth + a gentle lift on hover. */
+.glass-card {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012) 38%),
+    rgba(16, 21, 38, 0.52);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid rgba(138, 156, 255, 0.13);
+  box-shadow:
+    0 10px 32px -14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+.glass-card:hover {
+  border-color: rgba(138, 156, 255, 0.26);
+  box-shadow:
+    0 16px 44px -16px rgba(0, 0, 0, 0.6),
+    0 0 28px -10px rgba(123, 140, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- Accent treatments ---------- */
+/* Gradient fill for primary actions. */
+.btn-gradient {
+  background: linear-gradient(135deg, #5d7bff 0%, #8b6cff 55%, #a05eff 100%);
+  box-shadow: 0 4px 18px -6px rgba(108, 110, 255, 0.55);
+  transition:
+    filter 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+.btn-gradient:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 6px 24px -6px rgba(108, 110, 255, 0.7);
+}
+.btn-gradient:active {
+  transform: scale(0.98);
+}
+
+/* Luminous gradient text for headings. */
+.text-gradient {
+  background: linear-gradient(100deg, #c3ccff 0%, #9aa8ff 35%, #c79bff 70%, #8fd8f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft glow ring for active icons / focused elements. */
+.glow-accent {
+  box-shadow:
+    0 0 0 1px rgba(123, 140, 255, 0.35),
+    0 0 18px -2px rgba(123, 140, 255, 0.45);
+}
+
+/* Focus glow for inputs (applied alongside focus-within border classes). */
+.focus-glow:focus-within {
+  box-shadow: 0 0 0 1px rgba(123, 140, 255, 0.4), 0 0 24px -6px rgba(123, 140, 255, 0.4);
+}
+
+/* ---------- Motion ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.4s ease both;
+}
+
+/* Slim, unobtrusive scrollbars to match the app chrome. */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(138, 156, 255, 0.18);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 156, 255, 0.34);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Region used for dragging the frameless window via the top bar. */
+.app-drag {
+  -webkit-app-region: drag;
+}
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Indeterminate loading bar sweep (gradient comet). */
+@keyframes scoutload {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(420%);
+  }
+}
