@@ -2,7 +2,7 @@ import { BrowserWindow, type Rectangle } from 'electron'
 
 // Present as plain Chrome so UA-sniffing sites (Google) don't serve a blank page.
 const CHROME_UA =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36'
 
 const pipWindows = new Set<BrowserWindow>()
 

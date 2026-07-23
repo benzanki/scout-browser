@@ -41,7 +41,7 @@ const preloadPath = isElectron ? window.scout.webviewPreloadPath : undefined
 // makes UA-sniffing sites (notably Google) serve a blank "unsupported browser"
 // page. A clean desktop-Chrome UA fixes that.
 const CHROME_UA =
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36'
 
 interface LoadError {
   code: number
